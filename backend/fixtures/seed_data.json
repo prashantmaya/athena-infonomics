@@ -1,0 +1,35 @@
+{
+  "programs": [
+    {"code": "pilot-east", "name": "Pilot East Program"},
+    {"code": "agriculture-west", "name": "Agriculture West Program"}
+  ],
+  "users": [
+    {"username": "coord1", "password": "password123", "email": "coord1@example.com", "program_code": "pilot-east", "role": "coordinator"},
+    {"username": "agent1", "password": "password123", "email": "agent1@example.com", "program_code": "pilot-east", "role": "agent"},
+    {"username": "supervisor1", "password": "password123", "email": "supervisor1@example.com", "program_code": "pilot-east", "role": "supervisor"}
+  ],
+  "agents": [
+    {"program_code": "pilot-east", "external_id": "agent-001", "name": "Agent One", "username": "agent1"},
+    {"program_code": "pilot-east", "external_id": "agent-002", "name": "Agent Two", "username": null}
+  ],
+  "supervisors": [
+    {"program_code": "pilot-east", "name": "Supervisor One", "username": "supervisor1"}
+  ],
+  "case_types": [
+    {"program_code": "pilot-east", "slug": "home-visit", "name": "Home Visit", "schema": {"required_fields": ["beneficiary_name", "address"]}, "validation_rules": {"warn_if_missing": ["phone_number"]}},
+    {"program_code": "pilot-east", "slug": "health_followup", "name": "Health Follow-up", "schema": {}, "validation_rules": {}}
+  ],
+  "cases": [
+    {"program_code": "pilot-east", "case_type_slug": "home-visit", "title": "Household Follow-up A", "status": "active", "data": {"beneficiary_name": "Jane Doe", "address": "Sector 9", "phone_number": "", "priority": "high"}},
+    {"program_code": "pilot-east", "case_type_slug": "home-visit", "title": "Household Follow-up B", "status": "active", "data": {"beneficiary_name": "John Doe", "address": "Sector 10", "priority": "medium"}}
+  ],
+  "assignments": [
+    {"program_code": "pilot-east", "case_title": "Household Follow-up A", "agent_external_id": "agent-001"}
+  ],
+  "activities": [
+    {"program_code": "pilot-east", "agent_external_id": "agent-001", "case_title": "Household Follow-up A", "client_activity_id": "demo-activity-001", "activity_type": "visit_completed", "client_reported_at": "2026-03-23T10:00:00Z", "payload": {"notes": "Visited beneficiary.", "outcome": "met", "duration_minutes": 25}}
+  ],
+  "external_events": [
+    {"program_code": "pilot-east", "case_title": "Household Follow-up A", "source": "ehr_partner", "external_event_id": "ehr-evt-001", "event_type": "lab_result_posted", "client_reported_at": "2026-03-23T10:05:00Z", "payload": {"result_code": "NEG"}}
+  ]
+}

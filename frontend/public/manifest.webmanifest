@@ -1,0 +1,17 @@
+{
+  "name": "Athena Case Management",
+  "short_name": "Athena",
+  "description": "Offline-first case management prototype for coordinators, agents, and supervisors.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#111827",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

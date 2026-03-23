@@ -1,0 +1,7 @@
+{
+  "seed_fixture_path": "backend/fixtures/seed_demo_data.json",
+  "demo_case_id": 1,
+  "demo_program_id": 1,
+  "demo_agent_id": 1,
+  "demo_external_event_id": "ehr-evt-001"
+}

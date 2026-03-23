@@ -1,0 +1,500 @@
+{
+  "programs": [
+    {
+      "code": "pilot-east",
+      "name": "Pilot East Program"
+    },
+    {
+      "code": "agri-west",
+      "name": "Agriculture West"
+    },
+    {
+      "code": "social-media",
+      "name": "Instagram Collab"
+    }
+  ],
+  "users": [
+    {
+      "username": "coord1",
+      "password": "password123",
+      "email": "coord1@example.com",
+      "program_code": "pilot-east",
+      "role": "coordinator"
+    },
+    {
+      "username": "agent1",
+      "password": "password123",
+      "email": "agent1@example.com",
+      "program_code": "pilot-east",
+      "role": "agent"
+    },
+    {
+      "username": "supervisor1",
+      "password": "password123",
+      "email": "supervisor1@example.com",
+      "program_code": "pilot-east",
+      "role": "supervisor"
+    }
+  ],
+  "agents": [
+    {
+      "program_code": "pilot-east",
+      "external_id": "agent-001",
+      "name": "Agent One",
+      "username": "agent1"
+    },
+    {
+      "program_code": "pilot-east",
+      "external_id": "agent-002",
+      "name": "Agent Two",
+      "username": null
+    },
+    {
+      "program_code": "agri-west",
+      "external_id": "agent-003",
+      "name": "Agriculture West",
+      "username": "agent-agri-west"
+    },
+    {
+      "program_code": "pilot-east",
+      "external_id": "social-media-01",
+      "name": "Rohan Shrivastava",
+      "username": null
+    },
+    {
+      "program_code": "social-media",
+      "external_id": "social-media-001",
+      "name": "Abhinav Shekhar",
+      "username": null
+    },
+    {
+      "program_code": "agri-west",
+      "external_id": "agri-wealth-program",
+      "name": "Lekha Sharam",
+      "username": null
+    },
+    {
+      "program_code": "agri-west",
+      "external_id": "hot-mgmt-sys",
+      "name": "Anamika Singh",
+      "username": null
+    },
+    {
+      "program_code": "social-media",
+      "external_id": "hot-mgmt-sys",
+      "name": "Nehal Singh",
+      "username": null
+    }
+  ],
+  "supervisors": [
+    {
+      "program_code": "pilot-east",
+      "name": "Supervisor One",
+      "username": "supervisor1"
+    }
+  ],
+  "case_types": [
+    {
+      "program_code": "pilot-east",
+      "slug": "home-visit",
+      "name": "Home Visit",
+      "schema": {
+        "required_fields": [
+          "beneficiary_name",
+          "address"
+        ]
+      },
+      "validation_rules": {
+        "warn_if_missing": [
+          "phone_number"
+        ]
+      }
+    },
+    {
+      "program_code": "pilot-east",
+      "slug": "health_followup",
+      "name": "Health Follow-up",
+      "schema": {},
+      "validation_rules": {}
+    },
+    {
+      "program_code": "agri-west",
+      "slug": "agri-west",
+      "name": "Agriculture West",
+      "schema": {
+        "required_fields": [
+          "beneficiary_name",
+          "address"
+        ]
+      },
+      "validation_rules": {
+        "warn_if_missing": [
+          "phone_number"
+        ]
+      }
+    },
+    {
+      "program_code": "social-media",
+      "slug": "social-media",
+      "name": "Instagram Collab",
+      "schema": {
+        "required_fields": [
+          "beneficiary_name",
+          "address"
+        ]
+      },
+      "validation_rules": {
+        "required_fields": [
+          "beneficiary_name",
+          "address"
+        ]
+      }
+    },
+    {
+      "program_code": "agri-west",
+      "slug": "agri-health",
+      "name": "Agriculture health",
+      "schema": {
+        "priority": "medium"
+      },
+      "validation_rules": {
+        "priority": "medium"
+      }
+    }
+  ],
+  "cases": [
+    {
+      "program_code": "pilot-east",
+      "case_type_slug": "home-visit",
+      "title": "Household Follow-up A",
+      "status": "active",
+      "data": {
+        "beneficiary_name": "Jane Doe",
+        "address": "Sector 9",
+        "phone_number": ""
+      }
+    },
+    {
+      "program_code": "pilot-east",
+      "case_type_slug": "home-visit",
+      "title": "Household Follow-up B",
+      "status": "active",
+      "data": {
+        "beneficiary_name": "John Doe",
+        "address": "Sector 10",
+        "priority": "medium"
+      }
+    },
+    {
+      "program_code": "agri-west",
+      "case_type_slug": "agri-health",
+      "title": "Agri health",
+      "status": "active",
+      "data": {
+        "priority": "medium"
+      }
+    },
+    {
+      "program_code": "agri-west",
+      "case_type_slug": "agri-west",
+      "title": "Agri wealth",
+      "status": "active",
+      "data": {
+        "priority": "medium"
+      }
+    },
+    {
+      "program_code": "agri-west",
+      "case_type_slug": "agri-west",
+      "title": "Kisan Suraksha",
+      "status": "active",
+      "data": {
+        "priority": "medium"
+      }
+    },
+    {
+      "program_code": "social-media",
+      "case_type_slug": "social-media",
+      "title": "Insta Collab",
+      "status": "active",
+      "data": {
+        "priority": "medium"
+      }
+    },
+    {
+      "program_code": "agri-west",
+      "case_type_slug": "agri-health",
+      "title": "health program",
+      "status": "active",
+      "data": {
+        "priority": "medium"
+      }
+    },
+    {
+      "program_code": "social-media",
+      "case_type_slug": "social-media",
+      "title": "Hotel Management tool",
+      "status": "active",
+      "data": {
+        "priority": "low"
+      }
+    }
+  ],
+  "assignments": [
+    {
+      "program_code": "agri-west",
+      "case_title": "Agri health",
+      "agent_external_id": "agent-003"
+    },
+    {
+      "program_code": "pilot-east",
+      "case_title": "Household Follow-up B",
+      "agent_external_id": "agent-002"
+    },
+    {
+      "program_code": "pilot-east",
+      "case_title": "Household Follow-up A",
+      "agent_external_id": "agent-002"
+    },
+    {
+      "program_code": "agri-west",
+      "case_title": "Kisan Suraksha",
+      "agent_external_id": "agent-003"
+    },
+    {
+      "program_code": "social-media",
+      "case_title": "Insta Collab",
+      "agent_external_id": "social-media-001"
+    },
+    {
+      "program_code": "agri-west",
+      "case_title": "Agri wealth",
+      "agent_external_id": "agent-003"
+    },
+    {
+      "program_code": "agri-west",
+      "case_title": "health program",
+      "agent_external_id": "agri-wealth-program"
+    },
+    {
+      "program_code": "social-media",
+      "case_title": "Hotel Management tool",
+      "agent_external_id": "hot-mgmt-sys"
+    }
+  ],
+  "activities": [
+    {
+      "program_code": "pilot-east",
+      "agent_external_id": "agent-001",
+      "case_title": "Household Follow-up A",
+      "client_activity_id": "demo-activity-001",
+      "activity_type": "visit_completed",
+      "client_reported_at": "2026-03-23T10:00:00Z",
+      "payload": {
+        "notes": "Visited beneficiary.",
+        "outcome": "met",
+        "duration_minutes": 25
+      }
+    },
+    {
+      "program_code": "agri-west",
+      "agent_external_id": "agent-003",
+      "case_title": "Agri health",
+      "client_activity_id": "c9cab906-4c18-473c-9d16-c996b7ebf253",
+      "activity_type": "visit_completed",
+      "client_reported_at": "2026-03-23T13:25:52.759000Z",
+      "payload": {
+        "notes": "{\"detail\":\"Invalid agent_id for given program_id.\"}",
+        "outcome": "pending"
+      }
+    },
+    {
+      "program_code": "agri-west",
+      "agent_external_id": "agent-003",
+      "case_title": "Agri health",
+      "client_activity_id": "083854fe-ec0d-41d8-aff3-333feadd694c",
+      "activity_type": "visit_completed",
+      "client_reported_at": "2026-03-23T13:26:02.896000Z",
+      "payload": {
+        "notes": "{\"detail\":\"Invalid agent_id for given program_id.\"}",
+        "outcome": "pending"
+      }
+    },
+    {
+      "program_code": "agri-west",
+      "agent_external_id": "agent-003",
+      "case_title": "Agri health",
+      "client_activity_id": "313a3383-9b0c-4d97-823a-dbfad1ff60a4",
+      "activity_type": "visit_completed",
+      "client_reported_at": "2026-03-23T13:43:26.302000Z",
+      "payload": {
+        "notes": "cd backend\n. .venv/bin/activate\npython manage.py shell -c \"from core.models import SyncSession; from django.utils import timezone; n=SyncSession.objects.filter(status='started').update(status='failed', completed_at=timezone.now()); print('updated', n)\"",
+        "outcome": "pending"
+      }
+    },
+    {
+      "program_code": "agri-west",
+      "agent_external_id": "agent-003",
+      "case_title": "Agri health",
+      "client_activity_id": "a29ba631-04e1-45f3-b6e0-ef303cd357c7",
+      "activity_type": "visit_completed",
+      "client_reported_at": "2026-03-23T14:01:19.770000Z",
+      "payload": {
+        "notes": "      {message && <p className=\"banner banner-info\">{message}</p>}\n",
+        "outcome": "pending"
+      }
+    },
+    {
+      "program_code": "agri-west",
+      "agent_external_id": "agent-003",
+      "case_title": "Agri health",
+      "client_activity_id": "2ac3545a-ec25-4cb8-be5f-ff1b80829136",
+      "activity_type": "visit_completed",
+      "client_reported_at": "2026-03-23T14:01:41.203000Z",
+      "payload": {
+        "notes": "",
+        "outcome": ""
+      }
+    },
+    {
+      "program_code": "social-media",
+      "agent_external_id": "social-media-001",
+      "case_title": "Insta Collab",
+      "client_activity_id": "5a486bd7-9db0-4eb2-aa43-162134e3b4c3",
+      "activity_type": "visit_completed",
+      "client_reported_at": "2026-03-23T14:25:17.208000Z",
+      "payload": {
+        "notes": "notes, more notes",
+        "outcome": "Pending"
+      }
+    },
+    {
+      "program_code": "agri-west",
+      "agent_external_id": "agent-003",
+      "case_title": "Agri health",
+      "client_activity_id": "98b2d150-e7d6-42e6-ab36-e307dbb17166",
+      "activity_type": "visit_completed",
+      "client_reported_at": "2026-03-23T14:25:57.275000Z",
+      "payload": {
+        "notes": "notes again",
+        "outcome": "Success"
+      }
+    },
+    {
+      "program_code": "pilot-east",
+      "agent_external_id": "agent-002",
+      "case_title": "Household Follow-up A",
+      "client_activity_id": "cc9418a7-beec-4fbd-beff-c863341347ba",
+      "activity_type": "visit_completed",
+      "client_reported_at": "2026-03-23T17:51:15.646000Z",
+      "payload": {
+        "notes": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "outcome": "Pending"
+      }
+    }
+  ],
+  "external_events": [
+    {
+      "program_code": "pilot-east",
+      "case_title": "Household Follow-up A",
+      "source": "ehr_partner",
+      "external_event_id": "ehr-evt-001",
+      "event_type": "lab_result_posted",
+      "client_reported_at": "2026-03-23T10:05:00Z",
+      "payload": {
+        "result_code": "NEG"
+      }
+    },
+    {
+      "program_code": "pilot-east",
+      "case_title": "Household Follow-up A",
+      "source": "payment_provider",
+      "external_event_id": "pay-evt-1001",
+      "event_type": "payment_received",
+      "client_reported_at": "2026-03-23T12:00:00Z",
+      "payload": {
+        "amount": 2500,
+        "currency": "INR"
+      }
+    },
+    {
+      "program_code": "pilot-east",
+      "case_title": "Household Follow-up B",
+      "source": "payment_provider_2",
+      "external_event_id": "pay-evt-1002",
+      "event_type": "payment_received",
+      "client_reported_at": "2026-03-23T12:00:00Z",
+      "payload": {
+        "amount": 2500,
+        "currency": "INR"
+      }
+    },
+    {
+      "program_code": "pilot-east",
+      "case_title": "Household Follow-up A",
+      "source": "payment_provider_2",
+      "external_event_id": "pay-evt-1004",
+      "event_type": "payment_received",
+      "client_reported_at": "2026-03-23T12:00:00Z",
+      "payload": {
+        "amount": 2500,
+        "currency": "INR"
+      }
+    },
+    {
+      "program_code": "pilot-east",
+      "case_title": "Household Follow-up A",
+      "source": "partner_system",
+      "external_event_id": "056312ea-cd87-43be-aa59-9fbbf102a3bc",
+      "event_type": "status_update",
+      "client_reported_at": "2026-03-23T14:40:31.438000Z",
+      "payload": {
+        "status": "referred"
+      }
+    },
+    {
+      "program_code": "pilot-east",
+      "case_title": "Household Follow-up B",
+      "source": "partner_system",
+      "external_event_id": "5bc5f7a2-7cb5-44f8-98e3-96cfbd8f31e0",
+      "event_type": "status_update",
+      "client_reported_at": "2026-03-23T14:40:52.891000Z",
+      "payload": {
+        "status": "accepted"
+      }
+    },
+    {
+      "program_code": "agri-west",
+      "case_title": "Kisan Suraksha",
+      "source": "partner_system",
+      "external_event_id": "93034d65-abb9-4dca-a74b-2755222917b0",
+      "event_type": "status_update",
+      "client_reported_at": "2026-03-23T14:42:14.807000Z",
+      "payload": {
+        "status": "accepted"
+      }
+    },
+    {
+      "program_code": "pilot-east",
+      "case_title": "Household Follow-up B",
+      "source": "partner_system",
+      "external_event_id": "d3a192fc-8650-4406-8c23-e41906678405",
+      "event_type": "status_update",
+      "client_reported_at": "2026-03-23T17:39:37.744000Z",
+      "payload": {
+        "status": "referred"
+      }
+    },
+    {
+      "program_code": "pilot-east",
+      "case_title": "Household Follow-up A",
+      "source": "smoke",
+      "external_event_id": "smoke-evt-1",
+      "event_type": "lab_result",
+      "client_reported_at": null,
+      "payload": {
+        "result": "NEG"
+      }
+    }
+  ]
+}

@@ -1,0 +1,343 @@
+openapi: 3.0.3
+info:
+  title: Athena Case Management API
+  version: 0.2.0
+  description: Prototype API contract aligned with implemented Django backend.
+servers:
+  - url: /api
+paths:
+  /cases/:
+    post:
+      summary: Create case
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseCreateRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Case'
+    get:
+      summary: List cases
+      parameters:
+        - in: query
+          name: program_id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+  /cases/{caseId}/:
+    get:
+      summary: Get case detail
+      parameters:
+        - in: path
+          name: caseId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+    put:
+      summary: Update case with version check
+      parameters:
+        - in: path
+          name: caseId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaseUpdateRequest'
+      responses:
+        '200':
+          description: Updated
+        '202':
+          description: Conflict flagged
+  /cases/{caseId}/assign/:
+    post:
+      summary: Assign case to agent
+      parameters:
+        - in: path
+          name: caseId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [agent]
+              properties:
+                agent:
+                  type: integer
+      responses:
+        '201':
+          description: Assigned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseAssignment'
+  /sync/pull:
+    get:
+      summary: Pull case and quality updates for agent
+      parameters:
+        - in: query
+          name: program_id
+          schema:
+            type: integer
+        - in: query
+          name: agent_id
+          schema:
+            type: integer
+        - in: query
+          name: since_token
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncPullResponse'
+  /sync/push:
+    post:
+      summary: Push outbox activities with idempotency
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncPushRequest'
+      responses:
+        '200':
+          description: Batch processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncPushResponse'
+  /events/ingest/:
+    post:
+      summary: Ingest external event idempotently
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalEventRequest'
+      responses:
+        '201':
+          description: Created
+        '200':
+          description: Duplicate
+  /cases/{caseId}/timeline/:
+    get:
+      summary: Get merged case timeline
+      parameters:
+        - in: path
+          name: caseId
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+  /dashboard/metrics/:
+    get:
+      summary: Read supervisor KPI cards
+      parameters:
+        - in: query
+          name: program_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardMetrics'
+components:
+  schemas:
+    CaseCreateRequest:
+      type: object
+      required: [program, case_type, title]
+      properties:
+        program:
+          type: integer
+        case_type:
+          type: integer
+        title:
+          type: string
+        data:
+          type: object
+          additionalProperties: true
+        status:
+          type: string
+          enum: [active, closed]
+    CaseUpdateRequest:
+      type: object
+      required: [client_version]
+      properties:
+        title:
+          type: string
+        data:
+          type: object
+          additionalProperties: true
+        status:
+          type: string
+          enum: [active, closed]
+        client_version:
+          type: integer
+    Case:
+      type: object
+      properties:
+        id:
+          type: integer
+        program:
+          type: integer
+        case_type:
+          type: integer
+        title:
+          type: string
+        data:
+          type: object
+          additionalProperties: true
+        version:
+          type: integer
+        status:
+          type: string
+          enum: [active, closed]
+        server_updated_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+    SyncPushRequest:
+      type: object
+      required: [program_id, agent_id, request_id, activities]
+      properties:
+        program_id:
+          type: integer
+        agent_id:
+          type: integer
+        request_id:
+          type: string
+        activities:
+          type: array
+          items:
+            type: object
+            required:
+              - client_activity_id
+              - case_id
+              - activity_type
+              - client_reported_at
+            properties:
+              client_activity_id:
+                type: string
+              case_id:
+                type: integer
+              activity_type:
+                type: string
+              client_reported_at:
+                type: string
+                format: date-time
+              payload:
+                type: object
+                additionalProperties: true
+    SyncPushResponse:
+      type: object
+      properties:
+        request_id:
+          type: string
+        accepted_count:
+          type: integer
+        accepted_ids:
+          type: array
+          items:
+            type: string
+        duplicate_ids:
+          type: array
+          items:
+            type: string
+    SyncPullResponse:
+      type: object
+      properties:
+        updates_token:
+          type: string
+        cases:
+          type: array
+          items:
+            $ref: '#/components/schemas/Case'
+    ExternalEventRequest:
+      type: object
+      required:
+        - source
+        - external_event_id
+        - program_id
+        - event_type
+      properties:
+        program_id:
+          type: integer
+        case_id:
+          type: integer
+          nullable: true
+        source:
+          type: string
+        external_event_id:
+          type: string
+        event_type:
+          type: string
+        client_reported_at:
+          type: string
+          format: date-time
+        payload:
+          type: object
+          additionalProperties: true
+    CaseAssignment:
+      type: object
+      properties:
+        id:
+          type: integer
+        case:
+          type: integer
+        agent:
+          type: integer
+        active:
+          type: boolean
+        assigned_at:
+          type: string
+          format: date-time
+    DashboardMetrics:
+      type: object
+      properties:
+        program_id:
+          type: integer
+        total_cases:
+          type: integer
+        active_cases:
+          type: integer
+        pending_sync_sessions:
+          type: integer
+        open_quality_issues:
+          type: integer
+        quality_score:
+          type: integer

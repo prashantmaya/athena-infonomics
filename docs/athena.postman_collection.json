@@ -1,0 +1,463 @@
+{
+  "info": {
+    "_postman_id": "3e7ea08a-5b8f-43cc-b889-89f1ad8c8d6f",
+    "name": "Athena Case Management API",
+    "description": "Postman collection for Athena local development and demo flows.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "health",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Reference Data",
+      "item": [
+        {
+          "name": "GET Programs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/programs/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "programs",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Case Types by Program",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/case-types/?program_id={{program_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "case-types",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "program_id",
+                  "value": "{{program_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Agents by Program",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/programs/agents/?program_id={{program_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "programs",
+                "agents",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "program_id",
+                  "value": "{{program_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Cases",
+      "item": [
+        {
+          "name": "GET Cases",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cases/?program_id={{program_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cases",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "program_id",
+                  "value": "{{program_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Create Case",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code >= 200 && pm.response.code < 300) {",
+                  "  const json = pm.response.json();",
+                  "  if (json && json.id) {",
+                  "    pm.collectionVariables.set('case_id', String(json.id));",
+                  "  }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"programId\": {{program_id}},\n  \"caseType\": \"{{case_type_slug}}\",\n  \"title\": \"Postman Demo Case\",\n  \"priority\": \"high\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/cases/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cases",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Case Detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cases/{{case_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cases",
+                "{{case_id}}",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT Case Update (Versioned)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Postman Demo Case (Updated)\",\n  \"status\": \"active\",\n  \"data\": {\n    \"priority\": \"high\",\n    \"notes\": \"Updated from Postman\"\n  },\n  \"client_version\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/cases/{{case_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cases",
+                "{{case_id}}",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Assign Case",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agentId\": {{agent_id}}\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/cases/{{case_id}}/assign/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cases",
+                "{{case_id}}",
+                "assign",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sync",
+      "item": [
+        {
+          "name": "GET Sync Pull",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/sync/pull/?program_id={{program_id}}&agent_id={{agent_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "sync",
+                "pull",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "program_id",
+                  "value": "{{program_id}}"
+                },
+                {
+                  "key": "agent_id",
+                  "value": "{{agent_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Sync Push",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"program_id\": {{program_id}},\n  \"agent_id\": {{agent_id}},\n  \"request_id\": \"{{request_id}}\",\n  \"activities\": [\n    {\n      \"client_activity_id\": \"{{client_activity_id}}\",\n      \"case_id\": {{case_id}},\n      \"activity_type\": \"visit_completed\",\n      \"client_reported_at\": \"2026-03-23T10:10:00Z\",\n      \"payload\": {\n        \"outcome\": \"met\",\n        \"notes\": \"Synced from Postman\"\n      }\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/sync/push/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "sync",
+                "push",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "External Events",
+      "item": [
+        {
+          "name": "POST External Event Ingest",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"program_id\": {{program_id}},\n  \"case_id\": {{case_id}},\n  \"source\": \"postman\",\n  \"external_event_id\": \"{{external_event_id}}\",\n  \"event_type\": \"lab_result_posted\",\n  \"event_occurred_at\": \"2026-03-23T10:12:00Z\",\n  \"payload\": {\n    \"result_code\": \"NEG\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/external-events/ingest/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "external-events",
+                "ingest",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Supervisor",
+      "item": [
+        {
+          "name": "GET Case Timeline",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cases/{{case_id}}/timeline/?limit=100",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cases",
+                "{{case_id}}",
+                "timeline",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Dashboard Metrics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/dashboard/metrics/?program_id={{program_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "dashboard",
+                "metrics",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "program_id",
+                  "value": "{{program_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Quality Issues",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/quality/issues/?program_id={{program_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "quality",
+                "issues",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "program_id",
+                  "value": "{{program_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000/api/v1"
+    },
+    {
+      "key": "program_id",
+      "value": "1"
+    },
+    {
+      "key": "agent_id",
+      "value": "1"
+    },
+    {
+      "key": "case_id",
+      "value": "1"
+    },
+    {
+      "key": "case_type_slug",
+      "value": "home-visit"
+    },
+    {
+      "key": "request_id",
+      "value": "postman-sync-001"
+    },
+    {
+      "key": "client_activity_id",
+      "value": "postman-activity-001"
+    },
+    {
+      "key": "external_event_id",
+      "value": "postman-event-001"
+    }
+  ]
+}
